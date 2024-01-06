@@ -30,6 +30,12 @@ app.get("/api/", function(req, res) {
     res.json({"unix": tiempo.getTime(), "utc": tiempo})
 });
 
+app.get("/api/:date?", function (req, res) {
+  let ruta = req.params.date;
+  let tiempo =  new Date(ruta)
+  res.json({"unix": tiempo.getTime(), "utc": tiempo})
+});
+
 // Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
