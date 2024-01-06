@@ -24,6 +24,9 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/", function(req, res) {
+  res.json(new Date())
+});
 
 
 // listen for requests :)
