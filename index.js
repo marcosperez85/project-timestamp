@@ -32,8 +32,14 @@ app.get("/api/", function(req, res) {
 
 app.get("/api/:date?", function (req, res) {
   let ruta = req.params.date;
-  let tiempo =  new Date(ruta)
-  res.json({"unix": tiempo.getTime(), "utc": tiempo})
+
+  let tiempo = new Date(ruta)
+  let dateTime = tiempo.toUTCString(); 
+  if(dateTime === "Invalid Date") {
+    res.json({error: dateTime})
+  } else {
+    res.json({"unix": tiempo.getTime(), "utc":  dateTime})
+  }  
 });
 
 // Error handling
