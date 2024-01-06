@@ -4,6 +4,7 @@
 // init project
 var express = require('express');
 var app = express();
+const PORT = 3000;
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -25,11 +26,22 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/", function(req, res) {
-  res.json(new Date())
+    let tiempo =  new Date()
+    res.json({"unix": tiempo.getTime(), "utc": tiempo})
 });
 
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+var listener = app.listen(PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+// listen for requests ORIGINAL pero cambiaba de puerto en cada reinicios
+// var listener = app.listen(process.env.PORT, function () {
+//   console.log('Your app is listening on port ' + listener.address().port);
+// });
